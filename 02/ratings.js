@@ -58,3 +58,18 @@ ratings.forEach(function(rating, i){
 
   console.log(canSee);
 });
+
+
+//jess solution
+console.log('jess solution')
+
+var ratingsAllowed = ages.map(function(age){
+  return ratings.filter(function(rating, index){
+    return age >= minAgeForRating[index];
+  })
+})
+
+ages.forEach(function(age, index){
+  console.log(age);
+  console.log(ratingsAllowed[index].toString());
+})
