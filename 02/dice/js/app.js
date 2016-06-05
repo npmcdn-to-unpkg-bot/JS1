@@ -16,18 +16,15 @@ Creating a page where every time the user hits the "Roll Dice" button, the scree
 
 */
 
+var randomDiceNumber = function(){
+  return Math.floor(Math.random() * 6) + 1;
+}
+
 var rollDice = function(){
-	var random1 = Math.floor(Math.random() * 6) + 1;
-	var random2 = Math.floor(Math.random() * 6) + 1;
-
-	var firstDieClass = "dice-" + random1;
-	var secondDieClass = "dice-" + random2;
-
-	var firstDie = document.getElementById('first-die');
-	firstDie.className = firstDieClass;
-
-	var secondDie = document.getElementById('second-die');
-	secondDie.className = secondDieClass;
+	var firstDieClass = "dice-" + randomDiceNumber();
+	var secondDieClass = "dice-" + randomDiceNumber();
+	document.getElementById('first-die').className = firstDieClass;
+	document.getElementById('second-die').className = secondDieClass;
 }
 
 document.getElementById('roll-dice').addEventListener('click', rollDice);
