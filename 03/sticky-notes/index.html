@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <style>
+    html, body {
+      margin: 0;
+      height: 100%;
+      width: 100%;
+    }
+    form, .sticky-notes{
+      display: block;
+    }
+    .box {
+      padding: 1em;
+      height: 200px;
+      width: 200px;
+      margin: 2px;
+      text-align: center;
+      font-size: 2em;
+      line-height: 2em;
+      font-weight: bold;
+      vertical-align: top;
+      display: inline-block;
+    }
+  </style>
+
+</head>
+<body>
+  <div class="container">
+    <form>
+      <input type="text" id="colour" name="colour" placeholder="Sticky note colour">
+      <input type="text" id="message" name="message" placeholder="Sticky note message">
+      <input type="submit" id="submit" value="Submit">
+    </form>
+    <div class="sticky-notes">
+    </div>
+  </div>
+  <!-- js -->
+  <script src="app.js"></script>
+</body>
+</html>
