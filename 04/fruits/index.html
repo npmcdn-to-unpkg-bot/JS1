@@ -45,4 +45,15 @@ document.querySelector('ul').children[0]
 
 document.querySelector('ul').children[0].parentNode
 
+
+Finding the siblings (without jQuery):
+
+var element = document.querySelector('li')
+var children = Array.from(elem.parentNode.childNodes)
+var siblings = children.filter(function(child){ return element != child})
+
 -->
+
+
+
+
