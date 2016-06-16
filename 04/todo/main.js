@@ -25,10 +25,34 @@ function buttonClicked(event) {
 
 function addToList(list, text) {
   var listItem = document.createElement('li')
-  listItem.innerText = text;
+  listItem.className = "list-thing"
+  listItem.innerText = text
+  var cross = document.createElement('a')
+  cross.className = "remove-todo"
+  cross.innerHTML = ' x'
+  cross.href = ""
+  listItem.appendChild(cross)
   list.appendChild(listItem)
   todo = document.querySelector('#new-thing').value = ""
 }
 
+function removeTodo(event){
+  event.preventDefault()
+  var todo = event.target.parentNode
+  var list = document.querySelector('#done-list')
+  addToDone(list, todo)
+}
+
+function addToDone(list, todo){
+  todo.childNodes[1].remove()
+  todo.style.backgroundColor = 'green'
+  list.appendChild(todo)
+}
+
 var button = document.querySelector('#new-thing-button')
 button.addEventListener('click', buttonClicked)
+
+var remove = document.querySelectorAll('.remove-todo')
+Array.from(remove).forEach(function(r){
+  r.addEventListener('click', removeTodo)
+})
