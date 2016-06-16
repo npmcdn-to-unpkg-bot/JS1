@@ -17,10 +17,15 @@ process.env.NOW_URL
 var Botkit = require('botkit');
 var controller = Botkit.slackbot();
 var bot = controller.spawn({
-  token: <your-token-here>
+  token: process.env.SLACKBOT_TOKEN
 })
+
 bot.startRTM(function(error, whichBot, payload) {
   if (error) {
     throw new Error('Could not connect to Slack');
   }
+});
+
+controller.hears(['hey'], ['mention'], function(whichBot, message) {
+  whichBot.reply(message, 'https://s-media-cache-ak0.pinimg.com/736x/8e/4f/98/8e4f986dff6182ab4437665300795cb9.jpg');
 });
