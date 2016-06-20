@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Tasty Fruit</title>
+  </head>
+  <body>
+    <img id="fruits" src="http://bit.ly/1V62kTZ" />
+    <h1>Some <span class="highlight">nice</span> fruits</h1>
+    <ul>
+      <li>Apples</li>
+      <li>Pears</li>
+      <li><span class="highlight">Blood</span> Oranges</li>
+    </ul>
+    <script>
+      document.querySelector('body').addEventListener('click', (event) => {
+        console.log('clicked body')
+      }, true)
+
+      document.querySelector('li').addEventListener('click', (event) => {
+        console.log('clicked li')
+       //event.stopPropagation()
+      })
+
+      document.querySelector('ul').addEventListener('click', (event) => {
+        console.log('clicked ul')
+      })
+    </script>
+  </body>
+</html>
+
+<!--
+When a list item is clicked, the following is logged:
+
+clicked body
+clicked li
+
+This is because...
+
+this event gets attached to the body during the trickle down phase, so
+it gets all the way down to the target, say the li that has been clicked, it would find the first event listener that has been added, and it would execute that one, but immeditaelty it would execute stop propogation, meaning
+
+Whenever an event occurs it is always created at the document.
+It always trickles down to the target.
+But when it starts bubbling up the DOM, if at any point stop propogation is called, it will stop bubbling up.
+-->
+

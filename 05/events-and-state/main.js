@@ -22,10 +22,29 @@ Here are some bonus tasks to push your DOM knowledge!
 
 (function() {
 
-  var container = document.querySelector('#container')
-  var state = {}
+  var list = document.querySelector('#my-list')
+
+  var state = {
+    todo: ''
+  }
+
+  delegate('#container','click','input[type="submit"]', () => {
+    event.preventDefault()
+
+    state.todo = document.querySelector('#new-thing').value
+
+    if(state.todo != ''){
+      render(state, list)
+      document.querySelector('#new-thing').value = ''
+    }
+  })
 
   function render(data, into) {
-
+    list.innerHTML += `
+      <li id="todo">
+        ${data.todo}
+      </li>
+    `
   }
+
 })()
