@@ -35,6 +35,7 @@ delegate('body', 'click', 'li', function(event){
 })
 
 
+// WHY EVENT DELEGATION?
 // with every event, we have access to event.target
 // but target is not always what you bound the event handler to 
 // the target is always the deepest element under your mouse position
