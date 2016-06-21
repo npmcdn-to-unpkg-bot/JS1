@@ -16,9 +16,11 @@
         console.log('clicked body')
       }, true)
 
-      document.querySelector('li').addEventListener('click', (event) => {
-        console.log('clicked li')
-       //event.stopPropagation()
+      document.querySelectorAll('li').forEach(function(li){
+        li.addEventListener('click', (event) => {
+          console.log('clicked li')
+         event.stopPropagation()
+        })
       })
 
       document.querySelector('ul').addEventListener('click', (event) => {
@@ -29,6 +31,10 @@
 </html>
 
 <!--
+Note: original code changed from document.querySelector('li') to document.querySelectorAll('li'), to ensure the event listener is added on all list items, not just the first. 
+
+EXPLANATION:
+
 When a list item is clicked, the following is logged:
 
 clicked body
@@ -36,11 +42,28 @@ clicked li
 
 This is because...
 
-this event gets attached to the body during the trickle down phase, so
-it gets all the way down to the target, say the li that has been clicked, it would find the first event listener that has been added, and it would execute that one, but immeditaelty it would execute stop propogation, meaning
+The first event listener gets attached to the body during the trickle down, or capture phase. So any click anywhere in the body will log 'clicked body'.
 
-Whenever an event occurs it is always created at the document.
-It always trickles down to the target.
+The second event listener gets attached to all list items. So any time a list item is clicked it will log 'clicked li'. 
+
+At this point, if you click on a list item, the output will be:
+
+clicked body
+clicked li
+
+If you clicked somewhere else in the body (not on a list item) the output will be:
+
+clicked body
+
+Note the use of event.stopPropagation() on our list items. This prevents the event from bubbling up the DOM and triggering event listeners on parent elements, like the ul. When an event occurs on an element - it will bubble up to <HTML>, triggering handlers on it’s way. If you were to comment out event.stopPropagation() here, the output for each click would be:
+
+clicked body
+clicked li
+clicked ul
+
+This is because of our third event listener attached to the ul, which logs clicked ul. 
+
+Whenever an event occurs it is always created at the document level. It always trickles down to the target.
 But when it starts bubbling up the DOM, if at any point stop propogation is called, it will stop bubbling up.
 -->
 
