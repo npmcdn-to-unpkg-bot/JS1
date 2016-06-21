@@ -25,25 +25,30 @@ Here are some bonus tasks to push your DOM knowledge!
   var list = document.querySelector('#my-list')
 
   var state = {
-    todo: ''
+    todos: ["Take out trash", "Clean Dishes", "Dance!"]
   }
 
   delegate('#container','click','input[type="submit"]', () => {
-    event.preventDefault()
+    event.preventDefault();
 
-    state.todo = document.querySelector('#new-thing').value
+    let todoText = document.querySelector('#new-thing').value;
+    if(!todoText) return;
 
-    if(state.todo != ''){
-      render(state, list)
-      document.querySelector('#new-thing').value = ''
-    }
+    state.todos.push(todoText);
+    document.querySelector('#new-thing').value = '';
+    
+    render(state, list);
   })
 
   function render(data, into) {
-    list.innerHTML += `
-      <li id="todo">
-        ${data.todo}
-      </li>
+    list.innerHTML = `
+      ${data.todos.map((todo) => {
+        return `
+          <li class="todo">
+            ${todo}
+          </li>
+        `
+      }).join('')}
     `
   }
 
