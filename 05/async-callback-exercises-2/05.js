@@ -22,6 +22,14 @@ function buildAWebsite(done) {
 }
 
 // Your solution here
+learnJS((js) => {
+	console.log(js)
+	setTimeout(() => {
+		buildAWebsite((website) => {
+			console.log(website)
+		})
+	}, 500)
+})
 
 
 console.log('I signed up for JS1')

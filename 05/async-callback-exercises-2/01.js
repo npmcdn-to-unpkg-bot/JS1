@@ -7,3 +7,8 @@
 function runningLate() {
   console.log('Phew, I made it!')
 }
+
+
+setTimeout(() => {
+	runningLate()
+}, 1000)

@@ -16,6 +16,8 @@ function arrived() {
 }
 
 // Use `arrived` here
-
+setTimeout(() => {
+	arrived()
+}, 500)
 
 commuting()
