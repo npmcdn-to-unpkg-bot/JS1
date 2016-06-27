@@ -12,7 +12,7 @@ process.env.FORECAST_KEY
 require('isomorphic-fetch');
 
 /*
-TASK 1: Google maps 
+TASK 1: Google maps
 
 var suburb = "Paddington"
 var url = `http://maps.googleapis.com/maps/api/geocode/json?address=${suburb}`
@@ -25,7 +25,7 @@ fetch(url).then((response) => {
 */
 
 /*
-TASK 2: Forecast api 
+TASK 2: Forecast api
 
 var location = {
 	name: "Sydney",
@@ -46,25 +46,19 @@ fetch(url).then((response) => {
 
 //TASK 1 & 2 COMBINED:
 
-var location = {
-	name: "Sydney",
-	latitude: "",
-	longitude: ""
-}
+var name = "Sydney"
 
-var googleMapsUrl = `http://maps.googleapis.com/maps/api/geocode/json?address=${location.name}`
+var googleMapsUrl = `http://maps.googleapis.com/maps/api/geocode/json?address=${name}`
 
 fetch(googleMapsUrl).then((response) => {
 	return response.json()
 }).then((dataAsJson) => {
-	location.latitude = dataAsJson.results[0].geometry.location.lat
-	location.longitude = dataAsJson.results[0].geometry.location.lng
-	return location
+	return dataAsJson.results[0].geometry.location
 }).then((location) => {
-	var forecastUrl = `https://api.forecast.io/forecast/${process.env.FORECAST_KEY}/${location.latitude},${location.longitude}?units=si`
+	var forecastUrl = `https://api.forecast.io/forecast/${process.env.FORECAST_KEY}/${location.lat},${location.lng}?units=si`
 	fetch(forecastUrl).then((response) => {
 		return response.json()
 	}).then((dataAsJson) => {
-		console.log(`At ${dataAsJson.latitude}, ${dataAsJson.longitude} the weather is ${dataAsJson.currently.summary} and the temperature is ${dataAsJson.currently.temperature} degrees Celcius.`)
+		console.log(`At ${name} (${location.lat}, ${location.lng}) the weather is ${dataAsJson.currently.summary} and the temperature is ${dataAsJson.currently.temperature} degrees Celcius.`)
 	})
 })
