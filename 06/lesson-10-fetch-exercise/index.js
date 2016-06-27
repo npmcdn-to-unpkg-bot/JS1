@@ -61,11 +61,10 @@ fetch(googleMapsUrl).then((response) => {
 	location.longitude = dataAsJson.results[0].geometry.location.lng
 	return location
 }).then((location) => {
-	console.log(location)
-	var forecastUrl = `https://api.forecast.io/forecast/${process.env.FORECAST_KEY}/${location.latitude},${location.longitude}`
+	var forecastUrl = `https://api.forecast.io/forecast/${process.env.FORECAST_KEY}/${location.latitude},${location.longitude}?units=si`
 	fetch(forecastUrl).then((response) => {
 		return response.json()
 	}).then((dataAsJson) => {
-		console.log(`At ${dataAsJson.latitude}, ${dataAsJson.longitude} the weather is ${dataAsJson.currently.summary} and the temperature is ${dataAsJson.currently.temperature}`)
+		console.log(`At ${dataAsJson.latitude}, ${dataAsJson.longitude} the weather is ${dataAsJson.currently.summary} and the temperature is ${dataAsJson.currently.temperature} degrees Celcius.`)
 	})
 })
