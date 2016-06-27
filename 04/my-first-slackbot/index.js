@@ -53,21 +53,14 @@ controller.hears(['girl'], ['mention'], function(whichBot, message) {
   whichBot.reply(message, randomImage(images));
 });
 
-controller.hears(['#womenintech'], ['mention'], function(whichBot, message) {
-  //whichBot.reply(message, randomImage(images));
-
+controller.hears(['who goes there'], ['mention'], function(whichBot, message) {
     bot.api.users.list({},function(err,response) {
-      console.log(response)
-
-      // var channel = response.channels.filter(function(channel){
-      //   return channel.name = ['general']
-      // })
-
-      // console.log(channel)
-
-
-      //Do something...
+      var memberNames = []
+      response.members.forEach(function(member){
+        memberNames.push(member.name)
+      })
+      console.log(memberNames)
+      whichBot.reply(message, memberNames.join(', '));
     })
-
 });
 
