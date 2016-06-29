@@ -12,7 +12,8 @@
   var container = document.querySelector('#container')
   var state = {
     accessToken: window.location.hash.split('=')[1] ? window.location.hash.split('=')[1] : false,
-    recentMediaUrl: ''
+    recentMediaUrl: '',
+    weatherDuringShot: ''
   }
 
   //var accessToken = window.location.hash.split('=')[1]
@@ -26,7 +27,16 @@
       return response.json()
     }).then((dataAsJson) => {
       state.recentMediaUrl = dataAsJson.data[0].images.standard_resolution.url 
-      renderImages(state, container)
+
+      var locationWeatherUrl = `https://crossorigin.me/https://api.forecast.io/forecast/API_KEY/${dataAsJson.data[0].location.latitude},${dataAsJson.data[0].location.longitude},${dataAsJson.data[0].created_time}`
+
+      fetch(locationWeatherUrl).then((response) => {
+        return response.json()
+      }).then((dataAsJson) => {
+        state.weatherDuringShot = dataAsJson.currently.summary
+        renderImages(state, container)
+      })
+      
     })
   }
 
@@ -44,7 +54,7 @@
       <h2>Hey, here's the weather during your shot!</h2>
       <div class="instaweather">
         <img src=${data.recentMediaUrl} />
-        The weather was: TODO
+        The weather was: ${state.weatherDuringShot}
       </div>
     `
   }
