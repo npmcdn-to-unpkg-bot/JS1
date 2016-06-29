@@ -16,9 +16,7 @@
     weatherDuringShot: ''
   }
 
-  //var accessToken = window.location.hash.split('=')[1]
-
-  if (false /* TODO: did user authorize? */) {
+  if (!state.accessToken) {
     renderLogin(state, container)
   } else {
     var userMediaUrl = `https://crossorigin.me/https://api.instagram.com/v1/users/self/media/recent/?access_token=${state.accessToken}`
@@ -26,9 +24,9 @@
     fetch(userMediaUrl).then((response) => {
       return response.json()
     }).then((dataAsJson) => {
-      state.recentMediaUrl = dataAsJson.data[0].images.standard_resolution.url 
+      state.recentMediaUrl = dataAsJson.data[0].images.standard_resolution.url
 
-      var locationWeatherUrl = `https://crossorigin.me/https://api.forecast.io/forecast/API_KEY/${dataAsJson.data[0].location.latitude},${dataAsJson.data[0].location.longitude},${dataAsJson.data[0].created_time}`
+      var locationWeatherUrl = `https://crossorigin.me/https://api.forecast.io/forecast/e573fef5fa7fc9d9a2507335d7866d1f/${dataAsJson.data[0].location.latitude},${dataAsJson.data[0].location.longitude},${dataAsJson.data[0].created_time}`
 
       fetch(locationWeatherUrl).then((response) => {
         return response.json()
@@ -36,7 +34,7 @@
         state.weatherDuringShot = dataAsJson.currently.summary
         renderImages(state, container)
       })
-      
+
     })
   }
 
