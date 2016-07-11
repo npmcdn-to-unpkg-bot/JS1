@@ -35,8 +35,8 @@ const driver = (state) => {
       state.position += state.speed
       state.fuel -= 10
     },
-    showRemainingFuel: () => { },
-    refuel: () => { }
+    showRemainingFuel: () => { console.log(state.fuel) },
+    refuel: () => { state.fuel += 10 }
   }
 }
 const dog = (name) => {
@@ -47,26 +47,43 @@ const dog = (name) => {
   return Object.assign({}, barker(state), pooper(state))
 }
 
-const app = (state) => {
+const app = () => {
   return {
     install: () => {}
   }
 }
 
-const uber = (state) => {
+const uber = (fuel) => {
+  'use strict'
+  let state = {
+    fuel: fuel
+  }
   return Object.assign({}, driver(state), app(state) )
 }
 
-const DogSim2000 = (state) => {
+const DogSim2000 = () => {
+  'use strict'
+  let state = {
+  }
   return Object.assign({}, app(state), barker(state) )
 }
 
 var fido = dog('Fido')
 fido.bark()
 // > 'Woof, I am Fido'
-
-var car = uber()
+console.log('creating instance of uber')
+var car = uber(100)
 console.log(car)
 
+// > 'Woof, I am Fido'
+console.log('creating instance of dogsim')
 var sim = DogSim2000()
 console.log(sim)
+
+console.log('testing fuel methods')
+car.showRemainingFuel()
+car.drive()
+car.drive()
+car.showRemainingFuel()
+car.refuel()
+car.showRemainingFuel()
