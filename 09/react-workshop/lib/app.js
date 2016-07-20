@@ -1,1 +1,4 @@
-document.querySelector('#app').innerHTML = 'Hello World'
+ReactDOM.render(
+  React.createElement('span', null, 'Hello, react!'),
+  document.getElementById('app')
+)
